@@ -1,0 +1,22 @@
+# Perhaps not the best, but a working solution
+service: vue-serverless-template
+provider:
+  name: aws
+  runtime: nodejs20.x
+functions:
+  vue:
+    handler: handler.handler
+    events:
+      - http: ANY /
+      - http: ANY {proxy+}
+
+package:
+  individually: true
+  excludeDevDependencies: true
+  exclude:
+    - ./**
+  include:
+    - dist/**
+    - handler.*
+plugins:
+  - serverless-offline
